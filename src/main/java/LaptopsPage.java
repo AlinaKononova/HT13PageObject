@@ -7,7 +7,8 @@ public class LaptopsPage {
   By rozetkaFilter = By.xpath("//a[@data-id='Rozetka']");
   By maxPriceField = By.xpath("//input[@formcontrolname='max']");
   By okBtn = By.xpath("//button[@type='submit']");
-  By firstSaleItem = By.xpath("//span[contains(@class, 'promo-label_type_action')]/..");
+  //By firstSaleItem = By.xpath("//span[contains(@class, 'promo-label_type_action')]/.."); первый идет с надписью -12%, а не Акция
+  By firstSaleItem = By.xpath("//span[text()= ' АКЦИЯ ']/..");
 
   private WebDriver driver;
   private WebDriverWait wait;
@@ -23,10 +24,10 @@ public class LaptopsPage {
   }
 
   public LaptopsPage setMaxPriceFilter(String text){
-    wait = new WebDriverWait(driver, 5);
     wait.until(ExpectedConditions.visibilityOfElementLocated(maxPriceField));
     driver.findElement(maxPriceField).clear();
     driver.findElement(maxPriceField).sendKeys(text);
+    driver.findElement(okBtn).click();
     return this;
   }
 

@@ -19,16 +19,17 @@ public class Hometask13Test {
     driver.manage().window().maximize();
     driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     driver.get("https://rozetka.com.ua/");
-    WebDriverWait wait = new WebDriverWait(driver, 5);
+    wait = new WebDriverWait(driver, 5);
   }
 
   @Test
   public void test(){
-    new HomePage(driver, wait).clickMenu();
-    new ComputersAndLaptopsPage(driver, wait).clickLaptops();
-    new LaptopsPage(driver, wait).setRozetkaFilter().setMaxPriceFilter("100000").clickOkBtn().clickFirstSaleProduct();
-    ProductSalePage productSalePage = new ProductSalePage(driver, wait);
-    Assert.assertTrue(productSalePage.elementSaleIsDisplayed());
+    new HomePage(driver, wait).clickMenu()
+            .clickLaptops()
+            .setRozetkaFilter().setMaxPriceFilter("100000")
+            .clickFirstSaleProduct();
+    
+    Assert.assertTrue(new ProductSalePage(driver, wait).elementSaleIsDisplayed());
   }
 
   @AfterMethod
